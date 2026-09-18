@@ -1,25 +1,33 @@
 class Solution {
     public int totalNumbers(int[] digits) {
-        HashSet<Integer> set = new HashSet<>();
-        int n = digits.length;
-        for(int i=0;i<n;i++) {
-            if(digits[i] != 0) {
-                for(int j=0;j<n;j++) {
-                    if(j == i) {
-                        continue;
-                    }
-                    for(int k=0;k<n;k++) {
-                        if(k == i || k == j) {
-                            continue;
-                        }
-                        if(digits[k]%2 == 0) {
-                            int num = digits[i]*100+digits[j]*10+digits[k];
-                            set.add(num);
-                        }
+        int[] freq = new int[10];
+
+        for (int d : digits) {
+            freq[d]++;
+        }
+
+        int count = 0;
+
+        for (int a = 1; a <= 9; a++) {          // hundreds: cannot be 0
+            if (freq[a] == 0) continue;
+            freq[a]--;
+
+            for (int b = 0; b <= 9; b++) {      // tens
+                if (freq[b] == 0) continue;
+                freq[b]--;
+
+                for (int c = 0; c <= 8; c += 2) { // units: even
+                    if (freq[c] > 0) {
+                        count++;
                     }
                 }
+
+                freq[b]++;
             }
+
+            freq[a]++;
         }
-        return set.size();
+
+        return count;
     }
 }
