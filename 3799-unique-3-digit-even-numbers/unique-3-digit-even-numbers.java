@@ -8,7 +8,7 @@ class Solution {
 
         int count = 0;
 
-        for (int a = 1; a <= 9; a++) {          // hundreds: cannot be 0
+        for (int a = 1; a <= 9; a++) {        
             if (freq[a] == 0) continue;
             freq[a]--;
 
